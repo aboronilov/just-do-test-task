@@ -7,7 +7,7 @@ type Props = {}
 
 const RegisterPage = (props: Props) => {
   return (
-    <section className='flex h-screen items-center justify-center flex-col'>
+    <section className='flex mt-4 items-center justify-center flex-col'>
       <Card className="w-[350px]">
         <CardHeader>
           <CardTitle>Register</CardTitle>
@@ -23,7 +23,7 @@ const RegisterPage = (props: Props) => {
           </div>
         </CardFooter>
       </Card>
-      <p className='mt-10 text-center text-sm text-primary font-light'>
+      <p className='mt-10 text-center text-sm font-light'>
         Allready have an account?{' '}
         <Link
           href='/auth/login'

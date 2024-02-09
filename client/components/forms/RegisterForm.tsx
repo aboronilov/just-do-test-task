@@ -1,6 +1,5 @@
 "use client"
 
-import React from 'react'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input"
 import { useForm } from "react-hook-form";
@@ -9,6 +8,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { registerSchema } from "@/validators/register";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner"
+import { useRegisterMutation } from '@/redux/features/authApiSlice';
+import { useRouter } from "next/navigation";
+import { Spinner } from '@/components/common'
 
 type Input = z.infer<typeof registerSchema>
 
@@ -20,12 +22,47 @@ const RegisterForm = () => {
             last_name: "",
             email: "",
             password: "",
-            confirm_password: ""
+            re_password: ""
         }
     })
 
-    const onSubmit = (data: Input) => {
-        toast.success(data.email)
+    const [register, { isLoading, error }] = useRegisterMutation()
+
+    const router = useRouter()
+
+    const onSubmit = ({
+        first_name,
+        last_name,
+        email,
+        password,
+        re_password
+    }: Input) => {
+        if (password !== re_password) {
+            toast.error("Passwords do not match!")
+            return
+        }
+
+        register({ first_name, last_name, email, password, re_password })
+            .unwrap()
+            .then(() => {
+                toast.success(`User with email ${email} successfully created`)
+                router.push("/auth/login/")
+            })
+            .catch((error) => {
+                let errorMessage = ""
+                let key: keyof typeof error.data;
+
+                for (key in error.data) {
+                    const value = error.data[key]
+
+                    if (value.length > 1) {
+                        errorMessage = value.join(", ")
+                    } else {
+                        errorMessage = value
+                    }
+                }
+                toast.error(`Failed to create user - ${errorMessage}`)
+            })
     }
 
     return (
@@ -86,7 +123,7 @@ const RegisterForm = () => {
                 />
                 <FormField
                     control={form.control}
-                    name="confirm_password"
+                    name="re_password"
                     render={({ field }) => (
                         <FormItem>
                             <FormLabel>Confirm password</FormLabel>
@@ -100,8 +137,9 @@ const RegisterForm = () => {
                 <Button
                     type="submit"
                     variant="login"
+                    disabled={isLoading}
                 >
-                    Register
+                    {isLoading ? <Spinner /> : "Register"}
                 </Button>
             </form>
         </Form>

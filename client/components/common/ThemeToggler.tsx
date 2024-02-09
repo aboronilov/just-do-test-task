@@ -16,7 +16,7 @@ type Props = {
   className: string;
 };
 
-export function ModeToggle({ className }: Props) {
+export default function ModeToggle({ className }: Props) {
   const { setTheme } = useTheme();
 
   return (

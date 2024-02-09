@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import Link from 'next/link'
-import { ModeToggle } from './ThemeToggler'
+import { ThemeToggler } from "@/components/common"
 
 type Props = {}
 
@@ -19,7 +19,7 @@ const Header = (props: Props) => {
                 </div>
             </Link>
             <h1 className='font-bold text-xl'>Fullstack developer test task</h1>
-            <ModeToggle className="" />
+            <ThemeToggler className="" />
         </header>
     )
 }

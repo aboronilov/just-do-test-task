@@ -23,7 +23,7 @@ const LoginPage = (props: Props) => {
           </div>
         </CardFooter>
       </Card>
-      <p className='mt-10 text-center text-sm text-primary font-light'>
+      <p className='mt-10 text-center text-sm font-light'>
 					Don&apos;t have an account?{' '}
 					<Link
 						href='/auth/register'

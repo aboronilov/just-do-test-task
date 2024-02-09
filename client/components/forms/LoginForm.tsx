@@ -9,6 +9,9 @@ import { zodResolver } from "@hookform/resolvers/zod"
 import { loginSchema } from "@/validators/login";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner"
+import { Spinner } from "@/components/common"
+import { useRouter } from 'next/navigation';
+import { useLoginMutation } from '@/redux/features/authApiSlice';
 
 type Input = z.infer<typeof loginSchema>
 
@@ -21,8 +24,20 @@ const LoginForm = () => {
         }
     })
 
-    const onSubmit = (data: Input) => {
-        toast.success(data.email)
+    const [login, { isLoading }] = useLoginMutation()
+
+    const router = useRouter()
+
+    const onSubmit = ({email, password}: Input) => {
+        login({email, password})
+            .unwrap()
+            .then(() => {
+                toast.success("Login successfull")
+                router.push("/dashboard")
+            })
+            .catch(() => {
+                toast.error("Wrong credentials")
+            })
     }
 
     return (
@@ -47,7 +62,7 @@ const LoginForm = () => {
                     name="password"
                     render={({ field }) => (
                         <FormItem>
-                            <FormLabel>Email</FormLabel>
+                            <FormLabel>Password</FormLabel>
                             <FormControl>
                                 <Input placeholder="enter your password" {...field} type="password" />
                             </FormControl>
@@ -58,8 +73,9 @@ const LoginForm = () => {
                 <Button
                     type="submit"
                     variant="login"
+                    disabled={isLoading}
                 >
-                    Login
+                    {isLoading ? <Spinner /> : "Login"}
                 </Button>
             </form>
         </Form>
