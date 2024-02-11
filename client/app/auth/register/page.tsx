@@ -1,8 +1,11 @@
 import BaseAuth from '@/components/common/BaseAuth';
 import RegisterForm from '@/components/forms/RegisterForm';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
-import Link from 'next/link';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+	title: 'Just DO | Register',
+	description: 'Full Auth register page',
+};
 
 type Props = {}
 

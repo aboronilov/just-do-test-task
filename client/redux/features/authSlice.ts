@@ -3,11 +3,13 @@ import { createSlice } from "@reduxjs/toolkit"
 interface AuthState {
 	isAuthenticated: boolean;
 	isLoading: boolean;
+	isSuperUser: boolean;
 }
 
 const initialState = {
 	isAuthenticated: false,
 	isLoading: true,
+	isSuperUser: false,
 } as AuthState;
 
 const authSlice = createSlice({
@@ -16,6 +18,9 @@ const authSlice = createSlice({
 	reducers: {
 		setAuth: state => {
 			state.isAuthenticated = true;
+		},
+		setSuperUser: state => {
+			state.isSuperUser = true;
 		},
 		logout: state => {
 			state.isAuthenticated = false;
@@ -26,5 +31,5 @@ const authSlice = createSlice({
 	},
 });
 
-export const { setAuth, logout, finishInitialLoad } = authSlice.actions;
+export const { setAuth, logout, finishInitialLoad, setSuperUser} = authSlice.actions;
 export default authSlice.reducer;

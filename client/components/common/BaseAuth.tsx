@@ -1,7 +1,8 @@
 import React from 'react'
-import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import Link from 'next/link';
+import GoogleButton from './GoogleButton';
+
 
 type Props = {
     title: string;
@@ -21,7 +22,7 @@ const BaseAuth = ({
     redirectTitle
 }: Props) => {
     return (
-        <section className='flex mt-4 items-center justify-center flex-col'>
+        <section className='flex items-center justify-center flex-col mt-4'>
             <Card className="w-[350px]">
                 <CardHeader>
                     <CardTitle>{title}</CardTitle>
@@ -33,7 +34,7 @@ const BaseAuth = ({
                 <CardFooter>
                     <div className="flex flex-col w-full space-y-3">
                         <CardDescription>Or</CardDescription>
-                        <Button variant="google">Login with Google</Button>
+                        <GoogleButton />
                     </div>
                 </CardFooter>
             </Card>

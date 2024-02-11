@@ -12,6 +12,8 @@ import { toast } from "sonner"
 import { Spinner } from "@/components/common"
 import { useRouter } from 'next/navigation';
 import { useLoginMutation } from '@/redux/features/authApiSlice';
+import { setAuth } from '@/redux/features/authSlice';
+import { useAppDispatch } from '@/redux/hooks';
 
 type Input = z.infer<typeof loginSchema>
 
@@ -28,10 +30,13 @@ const LoginForm = () => {
 
     const router = useRouter()
 
+    const dispatch = useAppDispatch()
+
     const onSubmit = ({email, password}: Input) => {
         login({email, password})
             .unwrap()
             .then(() => {
+                dispatch(setAuth())
                 toast.success("Login successfull")
                 router.push("/dashboard")
             })
