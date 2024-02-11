@@ -45,8 +45,7 @@ const RegisterForm = () => {
         register({ first_name, last_name, email, password, re_password })
             .unwrap()
             .then(() => {
-                toast.success(`User with email ${email} successfully created`)
-                router.push("/auth/login/")
+                toast.success(`Check your email ${email} for activation URL`)
             })
             .catch((error) => {
                 let errorMessage = ""

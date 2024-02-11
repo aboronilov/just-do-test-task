@@ -27,7 +27,9 @@ env = environ.Env(
     AUTH_COOKIE_SECURE=(bool, ""),
     REDIRECT_URLS=(str, ""),
     GOOGLE_AUTH_KEY=(str, ""),
-    GOOGLE_AUTH_SECRET_KEY=(str, "")
+    GOOGLE_AUTH_SECRET_KEY=(str, ""),
+    EMAIL_HOST_USER=(str, ""),
+    EMAIL_HOST_PASSWORD=(str, ""),
     # AWS_SES_FROM_EMAIL=(str, ""),
     # AWS_SES_SECRET_ACCESS_KEY=(str, ""),
     # AWS_SES_REGION_NAME=(str, ""),
@@ -169,13 +171,23 @@ REST_FRAMEWORK = {
 REDIRECT_URLS = [env('REDIRECT_URLS')]
 DJOSER = {
     # 'PASSWORD_RESET_CONFIRM_URL': 'password-reset/{uid}/{token}',
-    'SEND_ACTIVATION_EMAIL': False,
-    # 'ACTIVATION_URL': 'activation/{uid}/{token}',
+    'SEND_ACTIVATION_EMAIL': True,
+    'ACTIVATION_URL': 'activation/{uid}/{token}',
     'USER_CREATE_PASSWORD_RETYPE': True,
     'PASSWORD_RESET_CONFIRM_RETYPE': True,
     'TOKEN_MODEL': None,
-    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': REDIRECT_URLS
+    'SOCIAL_AUTH_ALLOWED_REDIRECT_URIS': REDIRECT_URLS,
+    'activation': 'djoser.email.ActivationEmail',
 }
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+DOMAIN = env("DOMAIN")
+SITE_NAME = 'Just DO'
 
 
 AUTH_COOKIE = 'access'

@@ -25,7 +25,6 @@ const RequireAuth = ({ children }: Props) => {
 
     if (!isAuthenticated) {
         router.push("/auth/login/")
-        toast.info("Please login")
     }
 
     return (

@@ -15,7 +15,6 @@ export default function useVerify() {
 			.unwrap()
 			.then(() => {
 				dispatch(setAuth());
-				console.log("auth")
 			})
 			.finally(() => {
 				dispatch(finishInitialLoad());
