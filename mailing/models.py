@@ -29,7 +29,7 @@ class Mailing(models.Model):
         verbose_name_plural = "Рассылки"
 
     def __str__(self):
-        return f"Mailing with id {self.id} and {self.status} from {self.created_at}"
+        return f"Mailing with id {self.id} from {self.created_at}"
 
 
 @receiver(post_save, sender=Mailing, dispatch_uid="handle_mailer_create")
@@ -48,9 +48,3 @@ def handle_mailer_create(sender, instance, created, *args, **kwargs):
 
         send_mail(subject, message, from_email,
                   recipient_list, fail_silently=False)
-
-        # subject = 'Welcome to My Site'
-        # message = 'Thank you for creating an account!'
-        # from_email = 'boronilov@gmail.com'
-        # recipient_list = ["boronilov@gmail.com"]
-        # send_mail(subject, message, from_email, recipient_list)

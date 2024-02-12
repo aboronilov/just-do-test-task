@@ -4,7 +4,7 @@ interface User {
 	first_name: string;
 	last_name: string;
 	email: string;
-    is_superuser: boolean;
+	is_superuser: boolean;
 }
 
 interface SocialAuthArgs {
@@ -16,6 +16,15 @@ interface SocialAuthArgs {
 interface CreateUserResponse {
 	success: boolean;
 	user: User;
+}
+
+export interface Mailing {
+	id: number;
+	message: string;
+	type: string;
+	created_at: Date;
+	author: number;
+	recipient: number;
 }
 
 const authApiSlice = apiSlice.injectEndpoints({
@@ -77,6 +86,18 @@ const authApiSlice = apiSlice.injectEndpoints({
 				body: { uid, token },
 			}),
 		}),
+		statistics: builder.query<Mailing[], { period?: string }>({
+			query: (arg) => {
+				const { period } = arg;
+				if (!period) {
+					return { url: "/mailing/" }
+				}
+				return {
+					url: "/mailing/",
+					params: { period }
+				}
+			}
+		})
 	}),
 });
 
@@ -88,4 +109,5 @@ export const {
 	useVerifyMutation,
 	useLogoutMutation,
 	useActivationMutation,
+	useStatisticsQuery
 } = authApiSlice;

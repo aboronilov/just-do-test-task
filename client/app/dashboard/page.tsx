@@ -1,19 +1,36 @@
 "use client"
 
 import React from 'react'
-import { useRetrieveUserQuery } from '@/redux/features/authApiSlice';
-import { Spinner } from '@/components/common';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card"
 
-type Props = {}
+import SearchInfo from '@/components/common/SearchInfo';
+import { useAppSelector } from '@/redux/hooks';
 
-// пока сделано через клиентский, может в Лама туториале передлаю под серверный
-
-const DashboardPage = (props: Props) => {
-  const { data: user, isLoading, isFetching } = useRetrieveUserQuery(undefined);
-  console.log(user)
+const DashboardPage = () => {
+  const { isSuperUser } = useAppSelector(state => state.auth)
   
   return (
-    <div>Yo</div>
+    <section className="container pt-5">
+      <Card>
+        <CardHeader>
+          <CardTitle>Mailing statistics dashboard</CardTitle>
+          <CardDescription>Data for the choosen period</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <SearchInfo />
+        </CardContent>
+        <CardFooter>
+          <p>Your current status <span className='text-red-300'>{isSuperUser ? "Admin" : "User"}</span></p>
+        </CardFooter>
+      </Card>
+    </section>
   )
 }
 
