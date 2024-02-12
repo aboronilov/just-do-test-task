@@ -67,6 +67,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'users',
+    'mailing',
 
     'rest_framework',
     'djoser',
@@ -188,7 +189,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 DOMAIN = env("DOMAIN")
 SITE_NAME = 'Just DO'
-
 
 AUTH_COOKIE = 'access'
 FEFRESH_COOKIE = 'refresh'
