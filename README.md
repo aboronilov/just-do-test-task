@@ -66,7 +66,7 @@
 
 ## Авторизация
 
-1) На странице авторизации введите учетные данные. 
+1) На странице авторизации введите учетные данные. Авторизация происхоит через cookies согласно ТЗ. Клиент так же "на лету" производит обновления access токена в случае, если его срок действия закончился.
 
 ![Landing page](https://raw.githubusercontent.com/aboronilov/just-do-test-task/main/client/public/screenshots/login/login.png)
 
