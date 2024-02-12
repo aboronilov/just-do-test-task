@@ -24,16 +24,13 @@ import parseMailing from "@/lib/parseMailng"
 
 const items = dataFilters
 
-// type Props = {
-//   children: React.ReactNode
-// }
-
 export function ComboboxDemo() {
   const [open, setOpen] = React.useState(false)
   const [value, setValue] = React.useState(undefined)
 
   const { data, isLoading } = useStatisticsQuery({period: value})
   const infoItems = parseMailing(data as Mailing[])
+  console.log(infoItems)
 
   return (
     <>

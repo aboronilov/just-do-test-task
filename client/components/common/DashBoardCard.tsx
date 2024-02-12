@@ -16,8 +16,8 @@ const DashboardCard = ({ type, quantity, isLoading }: Props) => {
 
     }
     return (
-        <div className="p-5 rounded-sm flex gap-5">
-            <div className="flex gap-5 flex-row">
+        <div className="p-5 flex gap-5">
+            <div className="flex flex-row bg-secondary px-4 py-2 rounded-md">
                 <div>
                     <span className="text-orange-500 mr-4 capitalize">{type}</span>
                     messages:

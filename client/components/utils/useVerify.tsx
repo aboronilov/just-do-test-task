@@ -11,20 +11,17 @@ export default function useVerify() {
 	const [verify] = useVerifyMutation();
 	const { data } = useRetrieveUserQuery()
 
-
-
 	useEffect(() => {
 		verify(undefined)
 			.unwrap()
 			.then(() => {
 				dispatch(setAuth());
 				if (data?.is_superuser) {
-					console.log("super")
 					dispatch(setSuperUser())
 				}
 			})
 			.finally(() => {
 				dispatch(finishInitialLoad());
 			});
-	}, []);
+	}, [data?.is_superuser]);
 }
